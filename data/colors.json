@@ -1,0 +1,46 @@
+{
+  "colors": [
+    {
+      "colorPrimary": "#123123",
+      "colorSecondary": "#123123",
+      "colorTertiary": "#123123",
+      "timestamp": 1644972745905,
+      "id": 1
+    },
+    {
+      "colorPrimary": "#456456",
+      "colorSecondary": "#456567",
+      "colorTertiary": "#234664",
+      "timestamp": 1644972758965,
+      "id": 2
+    },
+    {
+      "colorPrimary": "#515152",
+      "colorSecondary": "#757572",
+      "colorTertiary": "#213451",
+      "timestamp": 1644972783138,
+      "id": 3
+    },
+    {
+      "colorPrimary": "#123123",
+      "colorSecondary": "#123123",
+      "colorTertiary": "#123123",
+      "timestamp": 1644974362846,
+      "id": 4
+    },
+    {
+      "colorPrimary": "#123123",
+      "colorSecondary": "#123123",
+      "colorTertiary": "#123123",
+      "timestamp": 1644974371735,
+      "id": 5
+    },
+    {
+      "colorPrimary": "#123123",
+      "colorSecondary": "#123123",
+      "colorTertiary": "#123123",
+      "timestamp": 1644974494836,
+      "id": 6
+    }
+  ]
+}
