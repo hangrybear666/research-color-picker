@@ -1,7 +1,9 @@
 import React from 'react'
 import MuiAlert from '@mui/material/Alert';
 
-const Notification = ({ message, type }) => {
+const Notification = ({ colorsSubmitted, message, type }) => {
+
+  const display = colorsSubmitted ? 'none' : ''
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={5} ref={ref} variant="filled" {...props} />;
@@ -13,7 +15,7 @@ const Notification = ({ message, type }) => {
 
   return (
     <>
-      <Alert severity={type}>{message}</Alert>
+      <Alert sx={{ display: display }} severity={type}>{message}</Alert>
     </>
   )
 }

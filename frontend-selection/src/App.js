@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import colorService from './services/colors'
 import './App.css';
 import { Grid } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import BackgroundBox from './components/BackgroundBox';
+import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import ColorPicker from './components/ColorPicker';
 import Button from '@mui/material/Button';
 import SubmitButton from './components/SubmitButton';
 import Notification from './components/Notification';
+import ColorDisplay from './components/ColorDisplay';
+import HeaderBar from './components/HeaderBar';
+import FooterBar from './components/FooterBar';
+
+
 
 
 function App() {
@@ -23,26 +29,31 @@ function App() {
   const [displayPrimary, setDisplayPrimary] = useState(true)
   const [displaySecondary, setDisplaySecondary] = useState(false)
   const [displayTertiary, setDisplayTertiary] = useState(false)
-  const [selectionIsValid, setSelectionIsValid] = useState(false)
+  const [colorsSubmitted, setColorsSubmitted] = useState(false)
   const [colorType, setColorType] = useState("primary")
   const [errorMessage, setErrorMessage] = useState(null)
   const [notificationMsg, setNotificationMsg] = useState(null)
+
+  const hook = () => {
+    colorService
+      .getAll()
+      .then(response => {
+        /**
+         * colors queried from json-server
+         * this allows heroku to boot up the json-server while users are using the selection
+         */
+      })
+  }
+  useEffect(hook, [])
 
   const processSubmit = (e) => {
     e.preventDefault();
     let validationSuccess = false
     if (primaryColor && secondaryColor && tertiaryColor) {
-      console.log("first if reached")
       if (primaryColor.length === 7 && secondaryColor.length === 7 && tertiaryColor.length === 7) {
-        console.log("second if reached")
-        setSelectionIsValid(true)
         validationSuccess = true
       }
     }
-    console.log(` validationSuccess: ${validationSuccess}
-    primary color: "${primaryColor}"
-    secondary color: "${secondaryColor}"
-    tertiary color: "${tertiaryColor}"`)
     if (validationSuccess) {
       const newEntry = {
         colorPrimary: primaryColor,
@@ -50,11 +61,15 @@ function App() {
         colorTertiary: tertiaryColor,
         timestamp: Date.now()
       }
-      console.log(newEntry)
       colorService
-        .create(newEntry)
-        .then(addedColor => {
-          if (!addedColor.error) {
+      .create(newEntry)
+      .then(addedColor => {
+        if (!addedColor.error) {
+            setColorsSubmitted(true)
+            setDisplayPrimary(false)
+            setDisplaySecondary(false)
+            setDisplayTertiary(false)
+            // console.log("new entry added: ", newEntry)
             const message = `Your color selection has been saved!`
             notifyUser(message, false)
           } else {
@@ -119,18 +134,7 @@ function App() {
       className="outer-container"
       maxWidth="md"
       >
-      <Box
-        sx={{
-          width: '100%',
-          backgroundColor: `#1a2027`,
-          color: 'white',
-          paddingY: 0.5,
-        }}
-      >
-        <Grid container justifyContent="center">
-          <h2>Favorite Colors</h2>
-        </Grid>
-      </Box>
+      <HeaderBar/>
       <Paper elevation={8} sx={{
         backgroundColor: 'rgb(220, 220, 220)',
         border: '1px solid grey',
@@ -140,7 +144,13 @@ function App() {
         paddingTop:0.1
       }}>
 
-        <h4>Please choose your <u>{colorType}</u> color</h4>
+        <Typography variant="h6" sx={{display: colorsSubmitted ? 'none' : '', marginY:1}}>
+          Please choose your <u>{colorType}</u> color
+        </Typography>
+        <Typography variant="h6" sx={{display: colorsSubmitted ? '' : 'none', marginY:1}}>
+          Thank you for your participation.
+        </Typography>
+        <Notification message={notificationMsg} type="success"/>
         <form onSubmit={processSubmit}>
           <ColorPicker display={displayPrimary} color={primaryColor} onChange={setPrimaryColor}/>
           <ColorPicker display={displaySecondary} color={secondaryColor} onChange={setSecondaryColor}/>
@@ -150,33 +160,47 @@ function App() {
             direction="row"
             alignItems="center"
             justifyContent="space-between"
-            spacing={4}
+            columnSpacing={4}
             sx={{
               marginTop: '25px',
               marginBottom: '10px'
             }}
             >
               <Grid item xs={4}>
-                <BackgroundBox  type="primary" color={primaryColor} onClick={handleClick} active={colorType}/>
+                <BackgroundBox
+                  type="primary"
+                  colorsSubmitted={colorsSubmitted}
+                  color={primaryColor}
+                  onClick={handleClick}
+                  active={colorType}/>
               </Grid>
               <Grid item xs={4}>
-                <BackgroundBox item xs={4} type="secondary" color={secondaryColor} onClick={handleClick} active={colorType}/>
+                <BackgroundBox
+                  type="secondary"
+                  colorsSubmitted={colorsSubmitted}
+                  color={secondaryColor}
+                  onClick={handleClick}
+                  active={colorType}/>
               </Grid>
               <Grid item xs={4}>
-                <BackgroundBox item xs={4} type="tertiary" color={tertiaryColor} onClick={handleClick} active={colorType}/>
+                <BackgroundBox
+                  type="tertiary"
+                  colorsSubmitted={colorsSubmitted}
+                  color={tertiaryColor}
+                  onClick={handleClick}
+                  active={colorType}/>
               </Grid>
 
               <Grid item xs={12}>
-                <SubmitButton selectionIsValid={selectionIsValid}/>
-                <Notification message={errorMessage} type="error"/>
-                <Notification message={notificationMsg} type="success"/>
+                <SubmitButton colorsSubmitted={colorsSubmitted}/>
+                <ColorDisplay colorsSubmitted={colorsSubmitted} colors={[primaryColor,secondaryColor,tertiaryColor]} />
+                <Notification colorsSubmitted={colorsSubmitted} message={errorMessage} type="error"/>
               </Grid>
             </Grid>
           </form>
 
-
-        {/* <a href="https://www.flaticon.com/free-icons/color-palette" title="color palette icons">Color palette icons created by Freepik - Flaticon</a> */}
       </Paper>
+      <FooterBar/>
     </Container>
   );
 }

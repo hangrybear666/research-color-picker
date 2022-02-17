@@ -5,9 +5,9 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Grid } from '@mui/material';
 
 
-export default function BackgroundBox({ type, color, onClick, active }) {
+export default function BackgroundBox({ colorsSubmitted, type, color, onClick, active }) {
   const border = active === type ? '4px solid #333333' : '3px dashed #333333'
-
+  const displayEditBtn = colorsSubmitted ? 'none' : ''
   return (
     <Box
       sx={{
@@ -38,6 +38,7 @@ export default function BackgroundBox({ type, color, onClick, active }) {
             color: 'black',
             border: '2px dashed black',
             borderRadius: 0,
+            display: displayEditBtn,
             '&:hover': {
               border: '2px dashed white',
               color: 'white'
