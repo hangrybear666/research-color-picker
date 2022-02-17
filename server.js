@@ -5,6 +5,8 @@ const dotenv = require('dotenv').config()
 // HEROKU NODE SERVER
 const publicPath = path.join(__dirname, '..', 'frontend-selection/build')
 const targetedPath = path.join(__dirname, '..', 'frontend-analysis/build')
+console.log("publicPath: ", publicPath)
+console.log("targetedPath: ", targetedPath)
 // LOCAL NODE SERVER
 // const publicPath = path.join(__dirname, '..', 'research-color-picker/frontend-selection/build')
 // const targetedPath = path.join(__dirname, '..', 'research-color-picker/frontend-analysis/build')
