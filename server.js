@@ -31,7 +31,10 @@ app.use(express.static(targetedPath)) // TODO
 app.use(morgan('Received [:method] request to URL [:url] by address [:remote-addr] and client [:user-agent] using HTTP version [:http-version] with status [:status] - in time [:response-time ms] :postBody'))
 
 app.get('/analysis', (req, res) => {
-  res.sendFile(path.join(targetedPath, 'index.html'));
+  // heroku path
+  res.sendFile(path.join(targetedPath, '/index.html'));
+  // local path
+  // res.sendFile(path.join(targetedPath, '/index.html'));
 })
 
 app.get('*', (req, res) => {
