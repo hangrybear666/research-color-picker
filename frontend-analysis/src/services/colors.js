@@ -1,5 +1,6 @@
 import axios from 'axios'
-const baseUrl = `http://localhost:3001/colors`
+const baseUrl = `https://research-col-pick-json-srv.herokuapp.com/colors`
+// const baseUrl = `http://localhost:3001/colors`
 
 const getAll = () => {
   const request = axios.get(baseUrl)
