@@ -3,8 +3,8 @@ const morgan = require('morgan')
 const express = require('express')
 const dotenv = require('dotenv').config()
 // HEROKU NODE SERVER
-const publicPath = path.join(__dirname, '..', 'frontend-selection/build')
-const targetedPath = path.join(__dirname, '..', 'frontend-analysis/build')
+const publicPath = path.join('https://research-color-picker.herokuapp.com/', '/', 'frontend-selection/build')
+const targetedPath = path.join('https://research-color-picker.herokuapp.com/', '/', 'frontend-analysis/build')
 console.log("publicPath: ", publicPath)
 console.log("targetedPath: ", targetedPath)
 // LOCAL NODE SERVER
