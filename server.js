@@ -4,7 +4,7 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const publicPath = path.join(__dirname, '..', 'research-color-picker/frontend-selection/build')
 const targetedPath = path.join(__dirname, '..', 'research-color-picker/frontend-analysis/build')
-const port = process.env.NODE_SERVER_PORT || 3003
+const port = process.env.PORT || 3002
 
 const app = express()
 
