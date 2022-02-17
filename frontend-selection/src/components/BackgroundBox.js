@@ -5,19 +5,20 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Grid } from '@mui/material';
 
 
-export default function BackgroundBox({ type, color, onClick }) {
+export default function BackgroundBox({ type, color, onClick, active }) {
+  const border = active === type ? '4px solid #333333' : '3px dashed #333333'
+
   return (
     <Box
       sx={{
-        width: '150px',
         height: '150px',
         backgroundColor: `${color}`,
         '&:hover': {
           opacity: [0.85],
         },
         p: 2,
-        border: '2px solid black',
-        boxShadow: '0px 2px 2px black'
+        border: border,
+        boxShadow: '1px 2px 2px black'
       }}
     >
       <Grid

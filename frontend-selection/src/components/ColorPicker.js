@@ -7,7 +7,7 @@ export default function ColorPicker({ display, color, onChange }) {
       <HexColorPicker
         style={{
           width: 'auto',
-          display: display ? '' : 'none'
+          display: display ? '' : 'none',
         }}
         color={color}
         onChange={onChange}/>

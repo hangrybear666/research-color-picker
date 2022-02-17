@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import ColorPicker from './components/ColorPicker';
 import Button from '@mui/material/Button';
 import SubmitButton from './components/SubmitButton';
+import Notification from './components/Notification';
 
 
 function App() {
@@ -22,22 +23,27 @@ function App() {
   const [displayPrimary, setDisplayPrimary] = useState(true)
   const [displaySecondary, setDisplaySecondary] = useState(false)
   const [displayTertiary, setDisplayTertiary] = useState(false)
+  const [selectionIsValid, setSelectionIsValid] = useState(false)
   const [colorType, setColorType] = useState("primary")
   const [errorMessage, setErrorMessage] = useState(null)
   const [notificationMsg, setNotificationMsg] = useState(null)
 
   const processSubmit = (e) => {
     e.preventDefault();
-    let selectionComplete = false
+    let validationSuccess = false
     if (primaryColor && secondaryColor && tertiaryColor) {
-      if (primaryColor.length === 7 && secondaryColor.length === 7 && tertiaryColor.length === 7)
-      selectionComplete = true
+      console.log("first if reached")
+      if (primaryColor.length === 7 && secondaryColor.length === 7 && tertiaryColor.length === 7) {
+        console.log("second if reached")
+        setSelectionIsValid(true)
+        validationSuccess = true
+      }
     }
-    console.log(` selection complete: ${selectionComplete}
+    console.log(` validationSuccess: ${validationSuccess}
     primary color: "${primaryColor}"
     secondary color: "${secondaryColor}"
     tertiary color: "${tertiaryColor}"`)
-    if (selectionComplete) {
+    if (validationSuccess) {
       const newEntry = {
         colorPrimary: primaryColor,
         colorSecondary: secondaryColor,
@@ -59,30 +65,10 @@ function App() {
           notifyUser(message, true)
         })
 
-    }
-  }
-
-  const primaryColorSelectionListener = (e) => {
-    if (e.target.value) {
-      if (e.target.value.trim().length !== 0) {
-        setPrimaryColor("#".concat(e.target.value.trim()))
-      }
-    }
-  }
-
-  const secondaryColorSelectionListener = (e) => {
-    if (e.target.value) {
-      if (e.target.value.trim().length !== 0) {
-        setSecondaryColor("#".concat(e.target.value.trim()))
-      }
-    }
-  }
-
-  const tertiaryColorSelectionListener = (e) => {
-    if (e.target.value) {
-      if (e.target.value.trim().length !== 0) {
-        setTertiaryColor("#".concat(e.target.value.trim()))
-      }
+    } else {
+      console.log("first")
+      const message = `Please select three colors before submitting.`
+      notifyUser(message, true)
     }
   }
 
@@ -155,28 +141,39 @@ function App() {
       }}>
 
         <h4>Please choose your <u>{colorType}</u> color</h4>
-          <form onSubmit={processSubmit}>
-            <ColorPicker display={displayPrimary} color={primaryColor} onChange={setPrimaryColor}/>
-            <ColorPicker display={displaySecondary} color={secondaryColor} onChange={setSecondaryColor}/>
-            <ColorPicker display={displayTertiary} color={tertiaryColor} onChange={setTertiaryColor}/>
-        </form>
+        <form onSubmit={processSubmit}>
+          <ColorPicker display={displayPrimary} color={primaryColor} onChange={setPrimaryColor}/>
+          <ColorPicker display={displaySecondary} color={secondaryColor} onChange={setSecondaryColor}/>
+          <ColorPicker display={displayTertiary} color={tertiaryColor} onChange={setTertiaryColor}/>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={4}
+            sx={{
+              marginTop: '25px',
+              marginBottom: '10px'
+            }}
+            >
+              <Grid item xs={4}>
+                <BackgroundBox  type="primary" color={primaryColor} onClick={handleClick} active={colorType}/>
+              </Grid>
+              <Grid item xs={4}>
+                <BackgroundBox item xs={4} type="secondary" color={secondaryColor} onClick={handleClick} active={colorType}/>
+              </Grid>
+              <Grid item xs={4}>
+                <BackgroundBox item xs={4} type="tertiary" color={tertiaryColor} onClick={handleClick} active={colorType}/>
+              </Grid>
 
-        <Grid
-          container
-          justifyContent="center"
-          sx={{
-            marginTop: '25px',
-            marginBottom: '10px'
-          }}
-          spacing={0}>
-          <Stack direction="row" spacing={5} >
-            <BackgroundBox type="primary" color={primaryColor} onClick={handleClick}/>
-            <BackgroundBox type="secondary" color={secondaryColor} onClick={handleClick}/>
-            <BackgroundBox type="tertiary" color={tertiaryColor} onClick={handleClick}/>
-          </Stack>
-        </Grid>
+              <Grid item xs={12}>
+                <SubmitButton selectionIsValid={selectionIsValid}/>
+                <Notification message={errorMessage} type="error"/>
+                <Notification message={notificationMsg} type="success"/>
+              </Grid>
+            </Grid>
+          </form>
 
-        <SubmitButton />
 
         {/* <a href="https://www.flaticon.com/free-icons/color-palette" title="color palette icons">Color palette icons created by Freepik - Flaticon</a> */}
       </Paper>
