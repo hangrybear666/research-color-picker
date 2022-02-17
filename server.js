@@ -32,7 +32,7 @@ app.use(morgan('Received [:method] request to URL [:url] by address [:remote-add
 
 app.get('/analysis', (req, res) => {
   // heroku path
-  res.sendFile(path.join(targetedPath, '/index.html'));
+  res.sendFile(path.join(targetedPath, '/index.html'), { root : __dirname});
   // local path
   // res.sendFile(path.join(targetedPath, '/index.html'));
 })
