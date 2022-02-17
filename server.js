@@ -2,8 +2,12 @@ const path = require('path')
 const morgan = require('morgan')
 const express = require('express')
 const dotenv = require('dotenv').config()
-const publicPath = path.join(__dirname, '..', 'research-color-picker/frontend-selection/build')
-const targetedPath = path.join(__dirname, '..', 'research-color-picker/frontend-analysis/build')
+// HEROKU NODE SERVER
+const publicPath = path.join(__dirname, '..', 'frontend-selection/build')
+const targetedPath = path.join(__dirname, '..', 'frontend-analysis/build')
+// LOCAL NODE SERVER
+// const publicPath = path.join(__dirname, '..', 'research-color-picker/frontend-selection/build')
+// const targetedPath = path.join(__dirname, '..', 'research-color-picker/frontend-analysis/build')
 const port = process.env.PORT || 3002
 
 const app = express()
