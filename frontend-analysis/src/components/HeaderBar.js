@@ -15,7 +15,7 @@ export default function HeaderBar() {
         }}
       >
         <Grid container justifyContent="center">
-          <h2>Favorite Color Selection</h2>
+          <h2>Favorite Color Analysis</h2>
         </Grid>
       </Box>
     </>
