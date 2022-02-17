@@ -6,17 +6,13 @@ import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import BackgroundBox from './components/BackgroundBox';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
 import ColorPicker from './components/ColorPicker';
-import Button from '@mui/material/Button';
 import SubmitButton from './components/SubmitButton';
 import Notification from './components/Notification';
 import ColorDisplay from './components/ColorDisplay';
 import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
-
-
+import Info from './components/Info';
 
 
 function App() {
@@ -145,7 +141,7 @@ function App() {
       }}>
 
         <Typography variant="h6" sx={{display: colorsSubmitted ? 'none' : '', marginY:1}}>
-          Please choose your <u>{colorType}</u> color
+          Please choose your <u>{colorType}</u> color <Info/>
         </Typography>
         <Typography variant="h6" sx={{display: colorsSubmitted ? '' : 'none', marginY:1}}>
           Thank you for your participation.
