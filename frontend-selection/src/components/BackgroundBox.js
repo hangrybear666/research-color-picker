@@ -6,7 +6,7 @@ import { Grid } from '@mui/material';
 
 
 export default function BackgroundBox({ colorsSubmitted, type, color, onClick, active }) {
-  const border = active === type ? '3px solid #333333' : '2px dashed #333333'
+  const border = active === type ? '4px solid black' : '2px dashed #333333'
   const displayEditBtn = colorsSubmitted ? 'none' : ''
   return (
     <Box
