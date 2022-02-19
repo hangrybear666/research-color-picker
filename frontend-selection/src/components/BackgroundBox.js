@@ -10,8 +10,10 @@ export default function BackgroundBox({ colorsSubmitted, type, color, onClick, a
   const displayEditBtn = colorsSubmitted ? 'none' : ''
   return (
     <Box
+      onClick={() => onClick(type)}
       sx={{
-        height: '150px',
+        minHeight: '50px',
+        height: {xs: '100%', md: '10vh', lg: '15vh'},
         backgroundColor: `${color}`,
         '&:hover': {
           opacity: [0.85],
@@ -29,19 +31,13 @@ export default function BackgroundBox({ colorsSubmitted, type, color, onClick, a
       >
         <Button
           value={type}
-          onClick={() => onClick(type)}
-          variant="outlined"
-          size="medium"
+          variant="text"
+          size="large"
           sx={{
-            paddingX:1.5,
-            paddingY:0.5,
             color: 'black',
-            border: '2px dashed black',
-            borderRadius: 0,
             display: displayEditBtn,
             '&:hover': {
-              border: '2px dashed white',
-              color: 'white'
+              backgroundColor: 'transparent'
             }
           }}
           startIcon={<EditIcon/>}>

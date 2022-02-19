@@ -84,25 +84,28 @@ function App() {
   }
 
   const handleClick = (type) => {
-    setColorType(type)
+    // only handle Clicks if colors have not yet been submitted
+    if (!colorsSubmitted) {
+      setColorType(type)
+      switch (type) {
+        case "primary":
+          setDisplayPrimary(true)
+          setDisplaySecondary(false)
+          setDisplayTertiary(false)
+          break;
+        case "secondary":
+          setDisplayPrimary(false)
+          setDisplaySecondary(true)
+          setDisplayTertiary(false)
+          break;
+        case "tertiary":
+          setDisplayPrimary(false)
+          setDisplaySecondary(false)
+          setDisplayTertiary(true)
+          break;
+        default:
+      }
 
-    switch (type) {
-      case "primary":
-        setDisplayPrimary(true)
-        setDisplaySecondary(false)
-        setDisplayTertiary(false)
-        break;
-      case "secondary":
-        setDisplayPrimary(false)
-        setDisplaySecondary(true)
-        setDisplayTertiary(false)
-        break;
-      case "tertiary":
-        setDisplayPrimary(false)
-        setDisplaySecondary(false)
-        setDisplayTertiary(true)
-        break;
-      default:
     }
   }
 
@@ -129,6 +132,7 @@ function App() {
     <Container
       className="outer-container"
       maxWidth="md"
+      sx={{padding:0}}
       >
       <HeaderBar/>
       <Paper elevation={8} sx={{
@@ -140,11 +144,11 @@ function App() {
         paddingTop:0.1
       }}>
 
-        <Typography variant="h6" sx={{display: colorsSubmitted ? 'none' : '', marginY:1}}>
+        <Typography variant="h6" sx={{display: colorsSubmitted ? 'none' : '', marginY:1, whiteSpace: 'pre'}}>
           Please choose your <u>{colorType}</u> color <Info/>
         </Typography>
-        <Typography variant="h6" sx={{display: colorsSubmitted ? '' : 'none', marginY:1}}>
-          Thank you for your participation.
+        <Typography variant="h6" sx={{display: colorsSubmitted ? '' : 'none', marginY:1, whiteSpace: 'pre'}}>
+          Thank you for your participation. <Info/>
         </Typography>
         <Notification message={notificationMsg} type="success"/>
         <form onSubmit={processSubmit}>
