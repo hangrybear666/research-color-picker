@@ -29,7 +29,7 @@ export default function Info() {
           sx={{
             color: 'white'
           }}>
-          This is an anonymous survey for a university course at the Academy of Fine Arts, Nuremberg
+          This is an anonymous survey for a university course at the Friedrich-Alexander-University (FAU) Nuremberg
         </Typography>
       }>
         <IconButton
