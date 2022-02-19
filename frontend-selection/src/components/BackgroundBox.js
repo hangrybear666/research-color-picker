@@ -6,7 +6,7 @@ import { Grid } from '@mui/material';
 
 
 export default function BackgroundBox({ colorsSubmitted, type, color, onClick, active }) {
-  const border = active === type ? '4px solid #333333' : '3px dashed #333333'
+  const border = active === type ? '3px solid #333333' : '2px dashed #333333'
   const displayEditBtn = colorsSubmitted ? 'none' : ''
   return (
     <Box
@@ -20,7 +20,7 @@ export default function BackgroundBox({ colorsSubmitted, type, color, onClick, a
         },
         p: 2,
         border: border,
-        boxShadow: '1px 2px 2px black'
+        boxShadow: 3
       }}
     >
       <Grid
